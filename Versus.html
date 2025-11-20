@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>VERSUS – Télécharger le jeu Arduino</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-main: #050612;
+      --bg-card: rgba(10, 12, 28, 0.96);
+      --accent: #a855f7;       /* mauve */
+      --accent-soft: #7c3aed;  /* violet */
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(148, 163, 253, 0.18), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(192, 132, 252, 0.25), transparent 55%),
+        var(--bg-main);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+    .card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 28px 24px 26px;
+      max-width: 640px;
+      width: 100%;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(129, 140, 248, 0.6), rgba(236, 72, 153, 0.4));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      padding: 4px 11px;
+      border-radius: 999px;
+      background: rgba(88, 28, 135, 0.7);
+      color: #e9d5ff;
+      border: 1px solid rgba(216, 180, 254, 0.7);
+      margin-bottom: 10px;
+    }
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 8px #22c55e;
+    }
+    .title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0 0 6px;
+    }
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin: 0 0 18px;
+    }
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #e0e7ff;
+      margin: 18px 0 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .info {
+      font-size: 0.9rem;
+      color: var(--text-main);
+      margin: 0 0 12px;
+      line-height: 1.5;
+    }
+    .games-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px;
+      font-size: 0.9rem;
+    }
+    .games-list li {
+      margin-bottom: 6px;
+      display: flex;
+      gap: 6px;
+    }
+    .games-list li::before {
+      content: "•";
+      color: var(--accent);
+      margin-top: 1px;
+    }
+    .games-list strong {
+      color: #f9a8ff;
+      font-weight: 600;
+    }
+    .controls {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      line-height: 1.4;
+    }
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      color: white;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(147, 51, 234, 0.7);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+    }
+    .button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(147, 51, 234, 0.85);
+      filter: brightness(1.07);
+    }
+    .button span.icon {
+      font-size: 1.1rem;
+    }
+    .details {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Arduino · VERSUS – mini‑jeux intégrés
+    </div>
+
+    <h1 class="title">Télécharger le jeu</h1>
+    <p class="subtitle">
+      Sketch complet pour carte Arduino avec plusieurs modes de jeu à deux joueurs.
+    </p>
+
+    <h2 class="section-title">Jeux intégrés</h2>
+    <ul class="games-list">
+      <li>
+        <span>
+          <strong>Versus (LEDs rouges vs bleues)</strong> – jeu de réflexe 2 joueurs.<br/>
+          Une LED s’allume côté rouge et côté bleu&nbsp;: le premier joueur qui appuie sur
+          le bon bouton gagne un point, une erreur fait perdre un point.
+        </span>
+      </li>
+      <li>
+        <span>
+          <strong>Flappy 1 joueur</strong> – clone simplifié de Flappy Bird sur l’écran OLED.<br/>
+          Tu contrôles la hauteur du personnage avec le potentiomètre, et tu dois passer
+          entre les tuyaux sans les toucher.
+        </span>
+      </li>
+      <li>
+        <span>
+          <strong>Pong Master (2 joueurs)</strong> – Pong avec power‑ups.<br/>
+          Chaque joueur contrôle une raquette avec ses boutons, des bonus permettent
+          d’inverser les contrôles, faire clignoter la raquette adverse, accélérer ou
+          ralentir la balle, etc.
+        </span>
+      </li>
+    </ul>
+
+    <h2 class="section-title">Comment l'utiliser</h2>
+    <p class="controls">
+      1. Télécharge l’archive du projet.<br/>
+      2. Ouvre <code>Jeux.ino</code> dans l’IDE Arduino.<br/>
+      3. Sélectionne ta carte et ton port, puis téléverse le programme.<br/>
+      4. Utilise le potentiomètre et le dual‑button pour naviguer dans le menu du jeu.
+    </p>
+
+    <div class="button-row">
+      <a class="button" href="Versus_Game.zip" download>
+        <span class="icon">⬇️</span>
+        <span>Télécharger Versus_Game.zip</span>
+      </a>
+    </div>
+
+    <p class="details">
+      Contenu conseillé de l’archive&nbsp;: <code>Jeux.ino</code>, <code>MainGame.*</code>,
+      <code>PongMaster.*</code>, <code>Flappy.*</code>, <code>config.h</code>, etc.
+    </p>
+  </main>
+</body>
+</html>
